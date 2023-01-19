@@ -1,11 +1,28 @@
 <template>
-  <HeaderMain/>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view/>
+  <HeaderSection />
+  <MainSection />
+  <FooterSection />
+<!--  <nav>-->
+<!--    <router-link to="/">Home</router-link> |-->
+<!--    <router-link to="/about">About</router-link>-->
+<!--  </nav>-->
+<!--  <router-view/>-->
 </template>
+
+<script>
+import HeaderSection from "@/components/HeaderSection";
+import MainSection from "@/components/MainSection";
+import FooterSection from "@/components/FooterSection";
+
+export default {
+  components: {
+    HeaderSection,
+    MainSection,
+    FooterSection
+  }
+}
+
+</script>
 
 <style lang="scss">
 #app {
@@ -29,9 +46,3 @@ nav {
   }
 }
 </style>
-<script>
-import HeaderMain from "@/components/HeaderMain";
-export default {
-  components: {HeaderMain}
-}
-</script>

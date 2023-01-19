@@ -1,20 +1,14 @@
 <template>
   <div class="header">
     <div class="header-wrapper">
-      <nav>
-        <ul>
-          <li>item</li>
-          <li>item</li>
-          <li>item</li>
-        </ul>
-      </nav>
+      <h1>Header Block</h1>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HeaderMain"
+  name: "HeaderSection"
 }
 </script>
 
