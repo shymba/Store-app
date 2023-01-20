@@ -34,6 +34,7 @@ export default {
   padding: 15px;
   box-shadow: 0 5px 10px 0 rgba(0,0,0,0.3);
   border-radius: 10px;
+  background-color: #FFFFFF;
 
   .product-title {
     margin-bottom: 15px;
@@ -41,6 +42,7 @@ export default {
 
   .product-title, .product-price {
     text-align: center;
+    //color: #00DE00;
   }
 
   .image-product {
