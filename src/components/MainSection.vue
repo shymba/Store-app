@@ -1,25 +1,18 @@
 <template>
   <div class="main">
-    <h1>Main Block</h1>
-    <div v-for="product in listAllProducts" :key="product.id">
-      <div><strong>ID:</strong> {{ product.id }}</div>
-      <div><strong>Title:</strong> {{ product.title }}</div>
-      <div><strong>Price:</strong> {{ product.price }}$</div>
-      <div><strong>Category:</strong> {{ product.category }}</div>
-      <div>
-        <img class="image-product" :src="product.image"/>
-      </div>
-    </div>
+    <ProductCard :detailsOfProducts="listAllProducts"/>
   </div>
 </template>
 
 <script>
+import ProductCard from "@/components/ProductCard";
+
 export default {
   name: 'MainSection',
+  components: {ProductCard},
   data() {
     return {
       listAllProducts: [],
-      imagesOfProducts: []
     }
   },
   methods: {
@@ -28,25 +21,34 @@ export default {
       const response = await fetch(urlBase).then((res) => (res.json()));
 
       response.forEach(product => this.listAllProducts.push({
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        image: product.image,
-        category: product.category,
+            id: product.id,
+            title: product.title,
+            description: product.description,
+            rating: {
+              count: product.rating.count,
+              rate: product.rating.rate
+            },
+            price: product.price,
+            image: product.image,
+            category: product.category,
           }
       ));
     },
   },
-  mounted() {
+   mounted() {
     this.getListAllProducts()
   }
 }
 </script>
 
 <style scoped lang="scss">
+.main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
 
-.image-product {
-  width: 200px;
 }
+
 
 </style>
