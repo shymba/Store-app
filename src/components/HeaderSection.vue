@@ -1,6 +1,10 @@
 <template>
   <div class="header">
-    <button class="menu-btn">Menu</button>
+    <div class="menu">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
     <div class="header-wrapper" @click="$router.push('/')">
       <img class="logo-header" src="../assets/logo_store.png">
     </div>
@@ -18,11 +22,19 @@ export default {
   height: 120px;
   position: relative;
 
-  .menu-btn {
+  .menu {
     position: absolute;
     left: 45px;
     top: 45px;
     cursor: pointer;
+
+    .bar {
+      width: 30px;
+      height: 3px;
+      background-color: #006000;
+      margin: 5px 0;
+      border-radius: 2px;
+    }
   }
 
   .logo-header {
