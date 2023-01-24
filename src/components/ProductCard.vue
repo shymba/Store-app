@@ -28,8 +28,7 @@ export default {
   justify-content: space-between;
   max-width: 200px;
   width: 100%;
-  height: 100%;
-  min-height: 475px;
+  height: 475px;
   margin: 20px;
   padding: 15px;
   box-shadow: 0 5px 10px 0 rgba(0,0,0,0.3);
@@ -42,7 +41,6 @@ export default {
 
   .product-title, .product-price {
     text-align: center;
-    //color: #00DE00;
   }
 
   .image-product {
