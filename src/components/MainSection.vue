@@ -28,7 +28,6 @@ export default {
   },
   methods: {
     async getListAllProducts() {
-      console.log(this.sidebarVisible)
       this.listAllProducts = [];
       const urlBase = 'https://fakestoreapi.com/products';
       const response = await fetch(urlBase).then((res) => (res.json()));
@@ -59,7 +58,6 @@ export default {
     },
     showSidebar() {
       this.sidebarVisible = true;
-      console.log(this.sidebarVisible)
     }
   },
    mounted() {
