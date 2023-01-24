@@ -38,6 +38,8 @@ export default {
   color: #2c3e50;
   background: #00DE00;
   background: linear-gradient(to top, #006000 0%, #FFFFFF 94%);
+  position: relative;
+  min-height: 100vh;
 }
 
 nav {

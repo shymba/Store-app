@@ -74,6 +74,7 @@ export default {
   flex-wrap: wrap;
   align-items: center;
   justify-content: center;
+  padding-bottom: 4rem;
   max-width: 1200px;
   margin: 0 auto;
 
@@ -91,8 +92,6 @@ export default {
       border-radius: 2px;
     }
   }
-
 }
-
 
 </style>
