@@ -16,6 +16,9 @@
 <script>
 import ProductCard from "@/components/ProductCard";
 import SidebarSection from "@/components/SidebarSection";
+import ApiService from "@/modules/apiService";
+
+const apiListProducts = new ApiService();
 
 export default {
   name: 'MainSection',
@@ -27,40 +30,40 @@ export default {
     }
   },
   methods: {
-    async getListAllProducts() {
+    getListAllProducts() {
       this.listAllProducts = [];
-      const urlBase = 'https://fakestoreapi.com/products';
-      const response = await fetch(urlBase).then((res) => (res.json()));
+      const response = apiListProducts.getAllProducts();
 
-      response.forEach(product => this.listAllProducts.push({
-            id: product.id,
-            title: product.title,
-            description: product.description,
-            rating: {
-              count: product.rating.count,
-              rate: product.rating.rate
-            },
-            price: product.price,
-            image: product.image,
-            category: product.category,
-          }
-      ));
+      response.then(product => product.forEach(el => this.listAllProducts.push({
+                id: el.id,
+                title: el.title,
+                description: el.description,
+                rating: {
+                  count: el.rating.count,
+                  rate: el.rating.rate
+                },
+                price: el.price,
+                image: el.image,
+                category: el.category,
+              })
+          )
+      )
     },
     async getSelected(category) {
-      if(category === 'all products') {
+      if (category === 'all products') {
         await this.getListAllProducts()
       } else {
         const response = await fetch(`https://fakestoreapi.com/products/category/${category}`)
             .then((res) => res.json());
 
-        this.listAllProducts = response;
+        return this.listAllProducts = response;
       }
     },
     showSidebar() {
       this.sidebarVisible = true;
     }
   },
-   mounted() {
+  mounted() {
     this.getListAllProducts()
   }
 }
