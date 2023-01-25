@@ -50,13 +50,12 @@ export default {
       )
     },
     async getSelected(category) {
+      const response = await apiListProducts.getSelectedCategory(category)
+
       if (category === 'all products') {
         await this.getListAllProducts()
       } else {
-        const response = await fetch(`https://fakestoreapi.com/products/category/${category}`)
-            .then((res) => res.json());
-
-        return this.listAllProducts = response;
+        this.listAllProducts = response;
       }
     },
     showSidebar() {
