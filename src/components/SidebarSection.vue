@@ -17,6 +17,9 @@
 </template>
 
 <script>
+import ApiService from "@/modules/apiService";
+
+const apiListCategory = new ApiService();
 export default {
   name: "SidebarSection",
   props: {
@@ -33,8 +36,7 @@ export default {
   },
   methods: {
     async getAllCategory() {
-      const urlCategory = 'https://fakestoreapi.com/products/categories';
-      const response = await fetch(urlCategory).then((resp) => resp.json());
+      const response = await apiListCategory.getAllSidebarCategory()
       this.categoryProducts = response
 
       this.categoryProducts.unshift('all products')

@@ -11,4 +11,10 @@ export default class ApiService {
         const response_category = await fetch(urlBase).then((res) => (res.json()));
         return response_category
     }
+
+    async getAllSidebarCategory() {
+        const urlBase = 'https://fakestoreapi.com/products/categories';
+        const response_allCategory = await fetch(urlBase).then((res) => (res.json()));
+        return response_allCategory
+    }
 }
