@@ -30,33 +30,13 @@ export default {
     }
   },
   methods: {
-    getListAllProducts() {
+    async getListAllProducts() {
       this.listAllProducts = [];
-      const response = apiListProducts.getAllProducts();
-
-      response.then(product => product.forEach(el => this.listAllProducts.push({
-                id: el.id,
-                title: el.title,
-                description: el.description,
-                rating: {
-                  count: el.rating.count,
-                  rate: el.rating.rate
-                },
-                price: el.price,
-                image: el.image,
-                category: el.category,
-              })
-          )
-      )
+      this.listAllProducts = await apiListProducts.getAllProducts();
     },
     async getSelected(category) {
-      const response = await apiListProducts.getSelectedCategory(category)
-
-      if (category === 'all products') {
-        await this.getListAllProducts()
-      } else {
-        this.listAllProducts = response;
-      }
+      this.listAllProducts = await apiListProducts.getSelectedCategory(category);
+      category === 'all products' ? await this.getListAllProducts() : this.listAllProducts;
     },
     showSidebar() {
       this.sidebarVisible = true;
