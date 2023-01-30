@@ -31,19 +31,15 @@ export default {
   data() {
     return {
       categoryProducts: null,
-      selectedCategory: null
     }
   },
   methods: {
     async getAllCategory() {
-      const response = await apiListCategory.getAllSidebarCategory()
-      this.categoryProducts = response
-
+      this.categoryProducts = await apiListCategory.getAllSidebarCategory()
       this.categoryProducts.unshift('all products')
     },
     getOneCategory(category) {
-      this.selectedCategory = category;
-      this.$emit('check', this.selectedCategory)
+      this.$emit('selectedCategory', category)
     },
     hideSidebar() {
       this.$emit('update:show', false)

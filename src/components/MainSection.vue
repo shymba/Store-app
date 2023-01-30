@@ -5,9 +5,9 @@
       <div class="bar"></div>
       <div class="bar"></div>
     </div>
-    <ProductCard :detailsOfProducts="listAllProducts"/>
+    <ProductCard :detailsOfProducts="products"/>
     <SidebarSection
-        @check="getSelected"
+        @selectedCategory="getSelectedCategory"
         v-model:show="sidebarVisible"
     />
   </div>
@@ -25,25 +25,24 @@ export default {
   components: {ProductCard, SidebarSection},
   data() {
     return {
-      listAllProducts: [],
+      products: [],
       sidebarVisible: false
     }
   },
   methods: {
-    async getListAllProducts() {
-      this.listAllProducts = [];
-      this.listAllProducts = await apiListProducts.getAllProducts();
-    },
-    async getSelected(category) {
-      this.listAllProducts = await apiListProducts.getSelectedCategory(category);
-      category === 'all products' ? await this.getListAllProducts() : this.listAllProducts;
+    async getSelectedCategory(category) {
+      if(category === 'all products') {
+        this.products = await apiListProducts.getAllProducts()
+      } else {
+        this.products = await apiListProducts.getSelectedCategory(category);
+      }
     },
     showSidebar() {
       this.sidebarVisible = true;
     }
   },
-  mounted() {
-    this.getListAllProducts()
+  async mounted() {
+    this.products = await apiListProducts.getAllProducts()
   }
 }
 </script>
