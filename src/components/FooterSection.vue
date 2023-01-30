@@ -4,10 +4,10 @@
       <div class="footer-contacts">
         <address class="contacts">
           <a href="mailto:philipp@funtcoffee.com.ua">
-            <span class="email">e-mail: philipp@funtcoffee.com.ua</span>
+            <span class="email">e-mail: testmail@gmail.com</span>
           </a>
-          <a class="tel:+380970010508">
-            <span>tel: +38 097 001 05 08</span>
+          <a class="tel:+389991112233">
+            <span>tel: +38 999 111 22 33</span>
           </a>
         </address>
       </div>
