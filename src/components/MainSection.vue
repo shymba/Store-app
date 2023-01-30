@@ -5,9 +5,9 @@
       <div class="bar"></div>
       <div class="bar"></div>
     </div>
-    <ProductCard :detailsOfProducts="listAllProducts"/>
+    <ProductCard :detailsOfProducts="products"/>
     <SidebarSection
-        @check="getSelected"
+        @selectedCategory="getSelectedCategory"
         v-model:show="sidebarVisible"
     />
   </div>
@@ -25,45 +25,24 @@ export default {
   components: {ProductCard, SidebarSection},
   data() {
     return {
-      listAllProducts: [],
+      products: [],
       sidebarVisible: false
     }
   },
   methods: {
-    getListAllProducts() {
-      this.listAllProducts = [];
-      const response = apiListProducts.getAllProducts();
-
-      response.then(product => product.forEach(el => this.listAllProducts.push({
-                id: el.id,
-                title: el.title,
-                description: el.description,
-                rating: {
-                  count: el.rating.count,
-                  rate: el.rating.rate
-                },
-                price: el.price,
-                image: el.image,
-                category: el.category,
-              })
-          )
-      )
-    },
-    async getSelected(category) {
-      const response = await apiListProducts.getSelectedCategory(category)
-
-      if (category === 'all products') {
-        await this.getListAllProducts()
+    async getSelectedCategory(category) {
+      if(category === 'all products') {
+        this.products = await apiListProducts.getAllProducts()
       } else {
-        this.listAllProducts = response;
+        this.products = await apiListProducts.getSelectedCategory(category);
       }
     },
     showSidebar() {
       this.sidebarVisible = true;
     }
   },
-  mounted() {
-    this.getListAllProducts()
+  async mounted() {
+    this.products = await apiListProducts.getAllProducts()
   }
 }
 </script>

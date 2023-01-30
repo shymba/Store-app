@@ -17,6 +17,9 @@
 </template>
 
 <script>
+import ApiService from "@/modules/apiService";
+
+const apiListCategory = new ApiService();
 export default {
   name: "SidebarSection",
   props: {
@@ -28,20 +31,15 @@ export default {
   data() {
     return {
       categoryProducts: null,
-      selectedCategory: null
     }
   },
   methods: {
     async getAllCategory() {
-      const urlCategory = 'https://fakestoreapi.com/products/categories';
-      const response = await fetch(urlCategory).then((resp) => resp.json());
-      this.categoryProducts = response
-
+      this.categoryProducts = await apiListCategory.getAllSidebarCategory()
       this.categoryProducts.unshift('all products')
     },
     getOneCategory(category) {
-      this.selectedCategory = category;
-      this.$emit('check', this.selectedCategory)
+      this.$emit('selectedCategory', category)
     },
     hideSidebar() {
       this.$emit('update:show', false)
