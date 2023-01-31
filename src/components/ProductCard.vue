@@ -2,8 +2,18 @@
   <div class="listOfCards">
     <div class="btn-section">
       <div class="btn-content">
-        <button @click="layout = 'list'">List</button>
-        <button @click="layout = 'card'">Cards</button>
+        <button
+            @click="layout = 'list'"
+            :class="{active: layout === 'list'}"
+        >
+          List
+        </button>
+        <button
+            @click="layout = 'card'"
+            :class="{active: layout === 'card'}"
+        >
+          Cards
+        </button>
       </div>
     </div>
     <OneCard
@@ -57,6 +67,15 @@ export default {
       button {
         padding: 5px 10px;
         margin-left: 10px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+      }
+
+      .active {
+        color: #FFFFFF;
+        background-color: tomato;
+        cursor: not-allowed;
       }
     }
   }
