@@ -2,9 +2,14 @@
   <div class="sidebar" v-if="show">
     <div class="sidebar-menu">
       <div class="close-sidebar" @click.stop="hideSidebar">X</div>
-      <div class="sidebar-login" @click="showLogin">
+      <div class="sidebar-login" @click="loginUser" v-if="usersArr.length === 0">
         <p>LOGIN</p>
         <img src="../assets/icon-login.png"/>
+      </div>
+      <div class="sidebar-login" @click="logoutUser" v-else>
+          <p class="greetings-user" v-for="name in usersArr" :key="name">Greetings,<br> {{name.name}}!</p>
+          <p class="logout">LOGOUT</p>
+        <img src="../assets/icons-logout.png"/>
       </div>
       <div class="menu-content">
         <div
@@ -17,7 +22,10 @@
         </div>
       </div>
     </div>
-    <LoginPage v-model:showLoginPage="loginPageVisible"/>
+    <LoginPage
+        @loggedUser="loggedUser"
+        v-model:showLoginPage="loginPageVisible"
+    />
   </div>
 </template>
 
@@ -38,7 +46,9 @@ export default {
   data() {
     return {
       categoryProducts: null,
-      loginPageVisible:false
+      loginPageVisible:false,
+      usersArr: [],
+      name: ''
     }
   },
   methods: {
@@ -52,9 +62,15 @@ export default {
     hideSidebar() {
       this.$emit('update:show', false)
     },
-    showLogin() {
+    loginUser() {
       this.loginPageVisible = true;
-    }
+    },
+    loggedUser(user) {
+      this.usersArr = user;
+    },
+    logoutUser() {
+      this.usersArr = [];
+    },
   },
   mounted() {
     this.getAllCategory();
@@ -86,6 +102,10 @@ export default {
     justify-content: center;
     background-color: #006000;
     cursor: pointer;
+
+    .greetings-user {
+      margin-right: 10px;
+    }
   }
 
   .menu-content {

@@ -30,6 +30,7 @@ export default {
     return {
       userName: '',
       userPassword: '',
+      loginUsers: []
     }
   },
   methods: {
@@ -41,7 +42,9 @@ export default {
         name: this.userName,
         password: this.userPassword
       }
-      console.log(dataUser);
+      this.loginUsers.push(dataUser)
+      this.$emit('loggedUser', this.loginUsers)
+      this.loginUsers = [];
       this.hideLoginPage();
 
       this.userName = '';
