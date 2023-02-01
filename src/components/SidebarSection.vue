@@ -105,6 +105,8 @@ export default {
 
     .greetings-user {
       margin-right: 10px;
+      text-align: start;
+      letter-spacing: 2px;
     }
   }
 

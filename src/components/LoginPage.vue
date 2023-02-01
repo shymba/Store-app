@@ -6,9 +6,20 @@
           <img src="../assets/icons-close.png" @click="hideLoginPage"/>
         </div>
         <label for="username" class="username" />
-        <input id="username" type="text" placeholder="Type username" v-model="userName">
+        <input
+            id="username"
+            type="text"
+            placeholder="Type username"
+            v-model="userName"
+        >
         <label for="password" class="username" />
-        <input id="password" type="password" placeholder="Enter your password" v-model="userPassword">
+        <input
+            id="password"
+            type="password"
+            placeholder="Enter your password"
+            v-model="userPassword"
+            required
+        >
         <div class="submit-btn">
           <button class="btn" type="submit" value="Submit">Login</button>
         </div>
@@ -73,6 +84,7 @@ export default {
     .login-form {
       display: flex;
       flex-direction: column;
+      width: 350px;
       padding: 0 20px 10px;
 
       .close {
