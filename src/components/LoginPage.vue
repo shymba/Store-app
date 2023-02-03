@@ -29,6 +29,10 @@
 </template>
 
 <script>
+import ApiService from "@/modules/apiService";
+
+const apiLogin = new ApiService();
+
 export default {
   name: "LoginPage",
   props: {
@@ -41,27 +45,27 @@ export default {
     return {
       userName: '',
       userPassword: '',
-      loginUsers: []
+      loginUsers: null
     }
   },
   methods: {
     hideLoginPage() {
       this.$emit('update:showLoginPage', false)
     },
-    onSubmit() {
-      let dataUser = {
-        name: this.userName,
-        password: this.userPassword
-      }
-      this.loginUsers.push(dataUser)
-      this.$emit('loggedUser', this.loginUsers)
-      this.loginUsers = [];
-      this.hideLoginPage();
+    async onSubmit() {
+      const loginData = await apiLogin.loginUser(this.userName, this.userPassword);
 
+      const [, payload] = loginData.split('.')
+      let res = JSON.parse(window.atob(payload))
+      this.$emit('loggedUser', res._id)
+
+      this.hideLoginPage();
       this.userName = '';
       this.userPassword = '';
     }
   },
+  mounted() {
+  }
 }
 </script>
 

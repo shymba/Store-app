@@ -2,13 +2,15 @@
   <div class="sidebar" v-if="show">
     <div class="sidebar-menu">
       <div class="close-sidebar" @click.stop="hideSidebar">X</div>
-      <div class="sidebar-login" @click="loginUser" v-if="usersArr.length === 0">
+      <div class="sidebar-login" @click="loginUser" v-if="!firstname">
         <p>LOGIN</p>
         <img src="../assets/icon-login.png"/>
       </div>
-      <div class="sidebar-login" @click="logoutUser" v-else>
-          <p class="greetings-user" v-for="name in usersArr" :key="name">Greetings,<br> {{name.name}}!</p>
-          <p class="logout">LOGOUT</p>
+      <div class="sidebar-login" v-else @click="logoutUser">
+        <div class="welcome-user">
+          Welcome, {{firstname}}<br>{{lastname}}!
+        </div>
+        <p>LOGOUT</p>
         <img src="../assets/icons-logout.png"/>
       </div>
       <div class="menu-content">
@@ -18,13 +20,13 @@
             :key="category"
             @click="getOneCategory(category)"
         >
-          {{category}}
+          {{ category }}
         </div>
       </div>
     </div>
     <LoginPage
-        @loggedUser="loggedUser"
         v-model:showLoginPage="loginPageVisible"
+        @loggedUser="getUser"
     />
   </div>
 </template>
@@ -46,9 +48,10 @@ export default {
   data() {
     return {
       categoryProducts: null,
-      loginPageVisible:false,
+      loginPageVisible: false,
       usersArr: [],
-      name: ''
+      firstname: '',
+      lastname: '',
     }
   },
   methods: {
@@ -65,12 +68,15 @@ export default {
     loginUser() {
       this.loginPageVisible = true;
     },
-    loggedUser(user) {
-      this.usersArr = user;
-    },
     logoutUser() {
-      this.usersArr = [];
+      this.firstname = '';
+      this.lastname = '';
     },
+    async getUser(id) {
+      const user = await apiListCategory.getOneUser(id);
+      this.firstname = user.name.firstname
+      this.lastname = user.name.lastname
+    }
   },
   mounted() {
     this.getAllCategory();
@@ -103,10 +109,12 @@ export default {
     background-color: #006000;
     cursor: pointer;
 
-    .greetings-user {
+    .welcome-user {
+      font-size: 12px;
       margin-right: 10px;
       text-align: start;
       letter-spacing: 2px;
+      text-transform: capitalize;
     }
   }
 
