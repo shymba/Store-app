@@ -30,8 +30,10 @@
 
 <script>
 import ApiService from "@/modules/apiService";
+import TokenService from "@/modules/tokenService";
 
 const apiLogin = new ApiService();
+const apiTokenDecode = new TokenService();
 
 export default {
   name: "LoginPage",
@@ -55,18 +57,13 @@ export default {
     },
     async onSubmit() {
       this.loginData = await apiLogin.loginUser(this.userName, this.userPassword);
-      this.tokenDecode();
+      const decodedToken = apiTokenDecode.tokenDecode(this.loginData);
+      this.$emit('loggedUser', decodedToken.sub);
 
       this.hideLoginPage();
       this.userName = '';
       this.userPassword = '';
     },
-    tokenDecode() {
-      const [, payload] = this.loginData.split('.')
-      let res = JSON.parse(atob(payload))
-      console.log(res)
-      this.$emit('loggedUser', res.sub)
-    }
   },
   mounted() {
   }

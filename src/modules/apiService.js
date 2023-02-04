@@ -22,15 +22,13 @@ export default class ApiService {
         const response = fetch(`${this._apiBase}/auth/login`, {
 
             method: "POST",
-            headers: {"Content-Type":"application/json"},
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify({
                 username: name,
                 password: pass
             }),
-        }).then(res => res.json()).then(obj => {
-            return obj.token
-        });
-         return response
+        }).then(res => res.json())
+        return response
     }
 
     async getOneUser(id) {
