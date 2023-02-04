@@ -2,6 +2,7 @@
   <div class="sidebar" v-if="show">
     <div class="sidebar-menu">
       <div class="close-sidebar" @click.stop="hideSidebar">X</div>
+      <LoginUser />
       <div class="menu-content">
         <div
             class="category-menu"
@@ -9,7 +10,7 @@
             :key="category"
             @click="getOneCategory(category)"
         >
-          {{category}}
+          {{ category }}
         </div>
       </div>
     </div>
@@ -18,10 +19,12 @@
 
 <script>
 import ApiService from "@/modules/apiService";
+import LoginUser from "@/components/LoginUser";
 
 const apiListCategory = new ApiService();
 export default {
   name: "SidebarSection",
+  components: {LoginUser},
   props: {
     show: {
       type: Boolean,
@@ -31,6 +34,10 @@ export default {
   data() {
     return {
       categoryProducts: null,
+      loginPageVisible: false,
+      usersArr: [],
+      firstname: '',
+      lastname: '',
     }
   },
   methods: {
@@ -43,7 +50,7 @@ export default {
     },
     hideSidebar() {
       this.$emit('update:show', false)
-    }
+    },
   },
   mounted() {
     this.getAllCategory();
