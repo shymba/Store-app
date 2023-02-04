@@ -45,7 +45,8 @@ export default {
     return {
       userName: '',
       userPassword: '',
-      loginUsers: null
+      loginUsers: null,
+      loginData: null
     }
   },
   methods: {
@@ -53,15 +54,18 @@ export default {
       this.$emit('update:showLoginPage', false)
     },
     async onSubmit() {
-      const loginData = await apiLogin.loginUser(this.userName, this.userPassword);
-
-      const [, payload] = loginData.split('.')
-      let res = JSON.parse(window.atob(payload))
-      this.$emit('loggedUser', res._id)
+      this.loginData = await apiLogin.loginUser(this.userName, this.userPassword);
+      this.tokenDecode();
 
       this.hideLoginPage();
       this.userName = '';
       this.userPassword = '';
+    },
+    tokenDecode() {
+      const [, payload] = this.loginData.split('.')
+      let res = JSON.parse(atob(payload))
+      console.log(res)
+      this.$emit('loggedUser', res.sub)
     }
   },
   mounted() {
