@@ -47,7 +47,6 @@ export default {
     return {
       userName: '',
       userPassword: '',
-      loginUsers: null,
       loginData: null
     }
   },
@@ -63,7 +62,7 @@ export default {
       this.hideLoginPage();
       this.userName = '';
       this.userPassword = '';
-    },
+    }
   },
   mounted() {
   }

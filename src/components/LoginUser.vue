@@ -1,52 +1,37 @@
 <template>
-  <div class="sidebar-login" @click="loginUser" v-if="!firstname">
+  <div class="sidebar-login" @click="loginUser" v-if="!user.firstname">
     <p>LOGIN</p>
     <img src="../assets/icon-login.png"/>
   </div>
-  <div class="sidebar-login" v-else @click="logoutUser">
-    <div class="welcome-user">
-      Welcome, {{firstname}}<br>{{lastname}}!
+  <div class="sidebar-login" @click="logoutUser" v-else>
+    <div class="welcome-user" >
+      Welcome, {{ user.firstname }}<br>{{ user.lastname }}!
     </div>
     <p>LOGOUT</p>
     <img src="../assets/icons-logout.png"/>
   </div>
-  <LoginPage
-      v-model:showLoginPage="loginPageVisible"
-      @loggedUser="getUser"
-
-  />
 </template>
 
 <script>
-import ApiService from "@/modules/apiService";
-import LoginPage from "@/components/LoginPage";
-
-const apiListCategory = new ApiService();
 export default {
   name: "LoginUser",
-  components: {LoginPage},
-  data() {
-    return {
-      loginPageVisible: false,
-      firstname: '',
-      lastname: '',
+  props: {
+    user: {
+      type: Object,
+      required: true
     }
+  },
+  data() {
+    return {}
   },
   methods: {
     loginUser() {
-      this.loginPageVisible = true;
+      this.$emit('loginUser');
     },
     logoutUser() {
-      this.firstname = '';
-      this.lastname = '';
+      this.$emit('clearData')
     },
-    async getUser(id) {
-      const user = await apiListCategory.getOneUser(id);
-      this.firstname = user.name.firstname
-      this.lastname = user.name.lastname
-    }
   }
-
 }
 </script>
 
@@ -57,6 +42,10 @@ export default {
   justify-content: center;
   background-color: #006000;
   cursor: pointer;
+
+  button {
+    margin-top: 130px;
+  }
 
   .welcome-user {
     font-size: 12px;
