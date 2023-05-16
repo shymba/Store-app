@@ -16,7 +16,9 @@
         </button>
       </div>
     </div>
+    <div class="empty-list" v-if="!detailsOfProducts">The List is empty, choose another category</div>
     <OneCard
+        v-else
         :layout="layout"
         v-for="card in detailsOfProducts"
         :key="card.id"
@@ -78,6 +80,12 @@ export default {
         cursor: not-allowed;
       }
     }
+  }
+  .empty-list {
+    font-size: 30px;
+    color: #006000;
+    margin: auto;
+    width: 50%;
   }
 }
 
